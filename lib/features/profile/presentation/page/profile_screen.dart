@@ -12,8 +12,17 @@ import 'package:flutter_svg/svg.dart';
 import 'package:gap/gap.dart';
 import 'package:go_router/go_router.dart';
 
-class ProfileScreen extends StatelessWidget {
+class ProfileScreen extends StatefulWidget {
   const ProfileScreen({super.key});
+
+  @override
+  State<ProfileScreen> createState() => _ProfileScreenState();
+}
+
+class _ProfileScreenState extends State<ProfileScreen> {
+  void fetchData() {
+    setState(() {});
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -56,10 +65,19 @@ class ProfileScreen extends StatelessWidget {
                       ProfileTile(
                         label: 'Edit Profile',
                         onPressed: () {
-                          context.push(Routes.editProfile);
+                          context.push(Routes.editProfile).then((value) {
+                            if (value == true) {
+                              fetchData();
+                            }
+                          });
                         },
                       ),
-                      ProfileTile(label: 'Reset Password', onPressed: () {}),
+                      ProfileTile(
+                        label: 'Reset Password',
+                        onPressed: () {
+                          context.push(Routes.resetPassword);
+                        },
+                      ),
                       ProfileTile(label: 'FAQ', onPressed: () {}),
                       ProfileTile(label: 'Contact Us', onPressed: () {}),
                       ProfileTile(label: 'Privacy & Terms', onPressed: () {}),

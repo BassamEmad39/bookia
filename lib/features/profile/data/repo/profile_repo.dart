@@ -37,4 +37,25 @@ class ProfileRepo {
       return null;
     }
   }
+
+  static Future<bool> updatePassword(String currentPassword, String newPassword, String newPasswordConfirmation) async {
+    try {
+      var response = await DioProvider.post(
+        endPoint: AppConstants.updatePassword,
+        data: {
+          'current_password': currentPassword,
+          'new_password': newPassword,
+          'new_password_confirmation': newPasswordConfirmation,
+        },
+        headers: {'Authorization': 'Bearer ${SharedPref.getUserToken()}'},
+      );
+      if (response.statusCode == 200) {
+        return true;
+      } else {
+        return false;
+      }
+    } catch (e) {
+      return false;
+    }
+  }
 }

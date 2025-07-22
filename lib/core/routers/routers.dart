@@ -4,12 +4,14 @@ import 'package:bookia/features/auth/presentation/page/login_screen.dart';
 import 'package:bookia/features/auth/presentation/page/otp_screen.dart';
 import 'package:bookia/features/auth/presentation/page/register_screen.dart';
 import 'package:bookia/features/auth/presentation/page/success_screen.dart';
+import 'package:bookia/features/cart/presentation/page/checkout_success_screen.dart';
 import 'package:bookia/features/home/data/model/best_seller_response/product.dart';
 import 'package:bookia/features/home/presentation/pages/book_details_screen.dart';
 import 'package:bookia/features/intro/page/splash_screen.dart';
 import 'package:bookia/features/intro/page/welcome_screen.dart';
 import 'package:bookia/features/main/main_app_screen.dart';
 import 'package:bookia/features/profile/presentation/page/edit_profile_screen.dart';
+import 'package:bookia/features/profile/presentation/page/reset_password_screen.dart';
 import 'package:go_router/go_router.dart';
 
 class Routes {
@@ -24,6 +26,9 @@ class Routes {
   static const String main = '/main';
   static const String details = '/details';
   static const String editProfile = '/editProfile';
+  static const String resetPassword = '/resetPassword';
+  static const String checkoutSuccess = '/checkoutSuccess';
+
 
   static final routers = GoRouter(
     routes: [
@@ -60,6 +65,8 @@ class Routes {
         },
       ),
       GoRoute(path: editProfile, builder: (context, state) => const EditProfileScreen()),
+      GoRoute(path: resetPassword, builder: (context, state) => const ResetPasswordScreen()),
+      GoRoute(path: checkoutSuccess, builder: (context, state) => const CheckoutSuccessScreen()),
     ],
   );
 }

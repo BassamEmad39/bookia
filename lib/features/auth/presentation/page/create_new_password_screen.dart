@@ -64,6 +64,7 @@ class CreateNewPasswordScreen extends StatelessWidget {
                       ),
                       Gap(30),
                       NameTextFormField(
+                        isPassword: true,
                         controller: cubit.newPasswordController,
                         hintText: 'New Password',
                         validator: (value) {
@@ -77,6 +78,7 @@ class CreateNewPasswordScreen extends StatelessWidget {
                       ),
                       Gap(15),
                       NameTextFormField(
+                        isPassword: true,
                         controller: cubit.newConfirmPasswordController,
                         hintText: 'Confirm Password',
                         validator: (value) {

@@ -2,7 +2,6 @@ class AppConstants {
   static const String baseUrl = 'https://codingarabic.online/api/';
   static const String register = 'register';
   static const String login = 'login';
-  static const String logout = 'logout';
   static const String forgetPassword = 'forget-password';
   static const String checkForgetPassword = 'check-forget-password';
   static const String resetPassword = 'reset-password';
@@ -20,4 +19,7 @@ class AppConstants {
   static const String checkout = 'checkout';
   //profile
   static const String updateProfile = 'update-profile';
+  static const String logout = 'logout';
+  static const String updatePassword = 'update-password';
+
 }

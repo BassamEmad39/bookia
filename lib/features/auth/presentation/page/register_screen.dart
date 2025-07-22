@@ -100,6 +100,7 @@ class _LoginScreenState extends State<RegisterScreen> {
                       NameTextFormField(
                         hintText: 'Password',
                         controller: cubit.passwordController,
+                        isPassword: true,
                         validator: (value) {
                           if (value == null || value.isEmpty) {
                             return 'Please enter your password';
@@ -113,6 +114,7 @@ class _LoginScreenState extends State<RegisterScreen> {
                       NameTextFormField(
                         hintText: 'Confirm password',
                         controller: cubit.confirmPasswordController,
+                        isPassword: true,
                         validator: (value) {
                           if (value == null || value.isEmpty) {
                             return 'Please confirm your password';

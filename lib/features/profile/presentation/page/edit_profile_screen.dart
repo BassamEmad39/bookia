@@ -17,7 +17,6 @@ import 'package:go_router/go_router.dart';
 
 class EditProfileScreen extends StatefulWidget {
   const EditProfileScreen({super.key});
-
   @override
   State<EditProfileScreen> createState() => _EditProfileScreenState();
 }
@@ -31,12 +30,12 @@ class _EditProfileScreenState extends State<EditProfileScreen> {
 
   @override
   void initState() {
+    super.initState();
     var userInfo = SharedPref.getUserInfo();
     imageUrl = userInfo?.image;
     nameController.text = userInfo?.name ?? '';
     addressController.text = userInfo?.address ?? '';
     phoneController.text = userInfo?.phone ?? '';
-    super.initState();
   }
 
   @override
@@ -46,98 +45,92 @@ class _EditProfileScreenState extends State<EditProfileScreen> {
       child: BlocConsumer<ProfileCubit, ProfileState>(
         listener: (context, state) {
           if (state is ProfileSuccessState) {
-            context.pop();
-            context.pop();
+            context.pop(true);
+            context.pop(true);
+            showSuccessDialog(context, 'Profile updated successfully');
           } else if (state is ProfileErrorState) {
             showErrorDialog(context, 'Something went wrong.');
           } else if (state is ProfileLoadingState) {
             showLoadingDialog(context);
           }
         },
-        builder:
-            (context, state) => Scaffold(
-              appBar: MainAppBarWithBack(),
-              body: Center(
-                child: Padding(
-                  padding: const EdgeInsets.all(20.0),
-                  child: Column(
+        builder: (context, state) => Scaffold(
+          appBar: MainAppBarWithBack(),
+          body: Center(
+            child: Padding(
+              padding: const EdgeInsets.all(20.0),
+              child: Column(
+                children: [
+                  Stack(
                     children: [
-                      Stack(
-                        children: [
-                          if (imagePath != null)
-                            ClipOval(
-                              child: Image.file(
-                                File(imagePath ?? ''),
-                                width: 120,
-                                height: 120,
-                                fit: BoxFit.cover,
-                                errorBuilder:
-                                    (context, error, stackTrace) =>
-                                        const Icon(Icons.error),
-                              ),
-                            ),
-                          if (imagePath == null && imageUrl?.isNotEmpty == true)
-                            ClipOval(
-                              child: CachedNetworkImage(
-                                imageUrl: imageUrl ?? '',
-                                width: 120,
-                                height: 120,
-                                fit: BoxFit.cover,
-                                errorWidget:
-                                    (context, url, error) =>
-                                        const Icon(Icons.error),
-                              ),
-                            ),
-                          GestureDetector(
-                            onTap: () async{
-                            },
-                            child: Positioned(
-                              top: 100,
-                              right: 0,
-                              child: Container(
-                                decoration: BoxDecoration(
-                                  color: Colors.white,
-                                  shape: BoxShape.circle,
-                                ),
-                                child: SvgPicture.asset(AppAssets.cameraSvg),
-                              ),
-                            ),
+                      if (imagePath != null)
+                        ClipOval(
+                          child: Image.file(
+                            File(imagePath ?? ''),
+                            width: 120,
+                            height: 120,
+                            fit: BoxFit.cover,
+                            errorBuilder: (context, error, stackTrace) =>
+                                const Icon(Icons.error),
                           ),
-                        ],
-                      ),
-                      const SizedBox(height: 20),
-                      NameTextFormField(
-                        controller: nameController,
-                        hintText: 'Name',
-                      ),
-                      const SizedBox(height: 20),
-                      NameTextFormField(
-                        controller: addressController,
-                        hintText: 'Address',
-                      ),
-                      const SizedBox(height: 20),
-                      NameTextFormField(
-                        controller: phoneController,
-                        hintText: 'Phone',
-                      ),
-                      SizedBox(height: 20),
-                      MainButton(
-                        text: 'Save',
-                        onPressed: () {
-                          context.read<ProfileCubit>().editProfile(
-                            EditProfileParams(
-                              name: nameController.text,
-                              address: addressController.text,
-                              phone: phoneController.text,
-                            ),
-                          );
-                        },
+                        ),
+                      if (imagePath == null && imageUrl?.isNotEmpty == true)
+                        ClipOval(
+                          child: CachedNetworkImage(
+                            imageUrl: imageUrl ?? '',
+                            width: 120,
+                            height: 120,
+                            fit: BoxFit.cover,
+                            errorWidget: (context, url, error) =>
+                                const Icon(Icons.error),
+                          ),
+                        ),
+                      Positioned(
+                        top: 100,
+                        right: 0,
+                        child: Container(
+                          decoration: BoxDecoration(
+                            color: Colors.white,
+                            shape: BoxShape.circle,
+                          ),
+                          child: SvgPicture.asset(AppAssets.cameraSvg),
+                        ),
                       ),
                     ],
                   ),
-                ),
+                  const SizedBox(height: 20),
+                  NameTextFormField(
+                    controller: nameController,
+                    hintText: 'Name',
+                  ),
+                  const SizedBox(height: 20),
+                  NameTextFormField(
+                    controller: addressController,
+                    hintText: 'Address',
+                  ),
+                  const SizedBox(height: 20),
+                  NameTextFormField(
+                    controller: phoneController,
+                    hintText: 'Phone',
+                  ),
+                  SizedBox(height: 20),
+                  MainButton(
+                    text: 'Save',
+                    onPressed: () {
+                      context.read<ProfileCubit>().editProfile(
+                        EditProfileParams(
+                          name: nameController.text,
+                          address: addressController.text,
+                          phone: phoneController.text,
+                        ),
+                      );
+                    },
+                  ),
+                ],
               ),
             ),
+          ),
+        ),
       ),
     );
   }

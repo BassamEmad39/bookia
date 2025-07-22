@@ -2,6 +2,7 @@ import 'dart:developer';
 
 import 'package:bookia/components/buttons/main_button.dart';
 import 'package:bookia/components/dialogs/loading_dialog.dart';
+import 'package:bookia/core/routers/routers.dart';
 import 'package:bookia/core/utils/app_colors.dart';
 import 'package:bookia/features/cart/presentation/cubit/cart_cubit.dart';
 import 'package:bookia/features/cart/presentation/cubit/cart_state.dart';
@@ -43,6 +44,7 @@ class CartScreen extends StatelessWidget {
       context.pop();
     } else if (state is CheckOutDoneState) {
       context.pop();
+      context.push(Routes.checkoutSuccess);
       log('Successful');
     }
   }

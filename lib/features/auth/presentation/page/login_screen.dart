@@ -90,6 +90,7 @@ class _LoginScreenState extends State<LoginScreen> {
                       Gap(15),
                       NameTextFormField(
                         controller: cubit.passwordController,
+                        isPassword: true,
                         hintText: 'Enter your password',
                         validator: (value) {
                           if (value!.isEmpty) {
