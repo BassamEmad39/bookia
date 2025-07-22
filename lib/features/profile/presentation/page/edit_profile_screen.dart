@@ -56,77 +56,79 @@ class _EditProfileScreenState extends State<EditProfileScreen> {
         },
         builder: (context, state) => Scaffold(
           appBar: MainAppBarWithBack(),
-          body: Center(
-            child: Padding(
-              padding: const EdgeInsets.all(20.0),
-              child: Column(
-                children: [
-                  Stack(
-                    children: [
-                      if (imagePath != null)
-                        ClipOval(
-                          child: Image.file(
-                            File(imagePath ?? ''),
-                            width: 120,
-                            height: 120,
-                            fit: BoxFit.cover,
-                            errorBuilder: (context, error, stackTrace) =>
-                                const Icon(Icons.error),
+          body: SingleChildScrollView(
+            child: Center(
+              child: Padding(
+                padding: const EdgeInsets.all(20.0),
+                child: Column(
+                  children: [
+                    Stack(
+                      children: [
+                        if (imagePath != null)
+                          ClipOval(
+                            child: Image.file(
+                              File(imagePath ?? ''),
+                              width: 120,
+                              height: 120,
+                              fit: BoxFit.cover,
+                              errorBuilder: (context, error, stackTrace) =>
+                                  const Icon(Icons.error),
+                            ),
+                          ),
+                        if (imagePath == null && imageUrl?.isNotEmpty == true)
+                          ClipOval(
+                            child: CachedNetworkImage(
+                              imageUrl: imageUrl ?? '',
+                              width: 120,
+                              height: 120,
+                              fit: BoxFit.cover,
+                              errorWidget: (context, url, error) =>
+                                  const Icon(Icons.error),
+                            ),
+                          ),
+                        Positioned(
+                          top: 100,
+                          right: 0,
+                          child: Container(
+                            decoration: BoxDecoration(
+                              color: Colors.white,
+                              shape: BoxShape.circle,
+                            ),
+                            child: SvgPicture.asset(AppAssets.cameraSvg),
                           ),
                         ),
-                      if (imagePath == null && imageUrl?.isNotEmpty == true)
-                        ClipOval(
-                          child: CachedNetworkImage(
-                            imageUrl: imageUrl ?? '',
-                            width: 120,
-                            height: 120,
-                            fit: BoxFit.cover,
-                            errorWidget: (context, url, error) =>
-                                const Icon(Icons.error),
+                      ],
+                    ),
+                    const SizedBox(height: 20),
+                    NameTextFormField(
+                      controller: nameController,
+                      hintText: 'Name',
+                    ),
+                    const SizedBox(height: 20),
+                    NameTextFormField(
+                      controller: addressController,
+                      hintText: 'Address',
+                    ),
+                    const SizedBox(height: 20),
+                    NameTextFormField(
+                      controller: phoneController,
+                      hintText: 'Phone',
+                    ),
+                    SizedBox(height: 20),
+                    MainButton(
+                      text: 'Save',
+                      onPressed: () {
+                        context.read<ProfileCubit>().editProfile(
+                          EditProfileParams(
+                            name: nameController.text,
+                            address: addressController.text,
+                            phone: phoneController.text,
                           ),
-                        ),
-                      Positioned(
-                        top: 100,
-                        right: 0,
-                        child: Container(
-                          decoration: BoxDecoration(
-                            color: Colors.white,
-                            shape: BoxShape.circle,
-                          ),
-                          child: SvgPicture.asset(AppAssets.cameraSvg),
-                        ),
-                      ),
-                    ],
-                  ),
-                  const SizedBox(height: 20),
-                  NameTextFormField(
-                    controller: nameController,
-                    hintText: 'Name',
-                  ),
-                  const SizedBox(height: 20),
-                  NameTextFormField(
-                    controller: addressController,
-                    hintText: 'Address',
-                  ),
-                  const SizedBox(height: 20),
-                  NameTextFormField(
-                    controller: phoneController,
-                    hintText: 'Phone',
-                  ),
-                  SizedBox(height: 20),
-                  MainButton(
-                    text: 'Save',
-                    onPressed: () {
-                      context.read<ProfileCubit>().editProfile(
-                        EditProfileParams(
-                          name: nameController.text,
-                          address: addressController.text,
-                          phone: phoneController.text,
-                        ),
-                      );
-                    },
-                  ),
-                ],
+                        );
+                      },
+                    ),
+                  ],
+                ),
               ),
             ),
           ),

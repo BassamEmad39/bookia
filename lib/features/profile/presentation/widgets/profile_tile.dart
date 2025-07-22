@@ -1,15 +1,21 @@
 import 'package:bookia/core/utils/text_styles.dart';
 import 'package:flutter/material.dart';
 
-class ProfileTile extends StatelessWidget {
+class ProfileTile extends StatefulWidget {
   const ProfileTile({super.key, required this.label, required this.onPressed});
   final String label;
   final Function() onPressed;
+
+  @override
+  State<ProfileTile> createState() => _ProfileTileState();
+}
+
+class _ProfileTileState extends State<ProfileTile> {
   @override
   Widget build(BuildContext context) {
     return Container(
-      margin: EdgeInsets.only(bottom: 16),
-      padding: EdgeInsets.all(16),
+      margin: EdgeInsets.only(bottom: 8),
+      padding: EdgeInsets.all(8),
       decoration: BoxDecoration(
         borderRadius: BorderRadius.circular(8),
         color: Colors.white,
@@ -23,10 +29,10 @@ class ProfileTile extends StatelessWidget {
       ),
       child: Row(
         children: [
-          Text(label, style: TextStyles.getTitle()),
+          Text(widget.label, style: TextStyles.getTitle()),
           Spacer(),
           IconButton(
-            onPressed: onPressed,
+            onPressed: widget.onPressed,
             icon: Icon(Icons.arrow_forward_ios, size: 20),
           ),
         ],

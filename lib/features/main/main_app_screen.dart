@@ -38,7 +38,7 @@ class _MyWidgetState extends State<MainAppScreen> {
             activeIcon: SvgPicture.asset(
               AppAssets.homeSvg,
               colorFilter: ColorFilter.mode(
-                AppColors.primaryColor,
+                AppColors.primaryColor, 
                 BlendMode.srcIn,
               ),
             ),

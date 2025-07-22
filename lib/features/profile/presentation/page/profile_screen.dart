@@ -55,35 +55,37 @@ class _ProfileScreenState extends State<ProfileScreen> {
             ),
             body: Padding(
               padding: const EdgeInsets.all(20.0),
-              child: Column(
-                children: [
-                  ProfileHeader(),
-                  Gap(20),
-                  Column(
-                    children: [
-                      ProfileTile(label: 'My Orders', onPressed: () {}),
-                      ProfileTile(
-                        label: 'Edit Profile',
-                        onPressed: () {
-                          context.push(Routes.editProfile).then((value) {
-                            if (value == true) {
-                              fetchData();
-                            }
-                          });
-                        },
-                      ),
-                      ProfileTile(
-                        label: 'Reset Password',
-                        onPressed: () {
-                          context.push(Routes.resetPassword);
-                        },
-                      ),
-                      ProfileTile(label: 'FAQ', onPressed: () {}),
-                      ProfileTile(label: 'Contact Us', onPressed: () {}),
-                      ProfileTile(label: 'Privacy & Terms', onPressed: () {}),
-                    ],
-                  ),
-                ],
+              child: SingleChildScrollView(
+                child: Column(
+                  children: [
+                    ProfileHeader(),
+                    Gap(20),
+                    Column(
+                      children: [
+                        ProfileTile(label: 'My Orders', onPressed: () {}),
+                        ProfileTile(
+                          label: 'Edit Profile',
+                          onPressed: () {
+                            context.push(Routes.editProfile).then((value) {
+                              if (value == true) {
+                                fetchData();
+                              }
+                            });
+                          },
+                        ),
+                        ProfileTile(
+                          label: 'Reset Password',
+                          onPressed: () {
+                            context.push(Routes.resetPassword);
+                          },
+                        ),
+                        ProfileTile(label: 'FAQ', onPressed: () {}),
+                        ProfileTile(label: 'Contact Us', onPressed: () {}),
+                        ProfileTile(label: 'Privacy & Terms', onPressed: () {}),
+                      ],
+                    ),
+                  ],
+                ),
               ),
             ),
           );
